@@ -107,7 +107,7 @@ namespace LEDTower {
     //% group="Command Send" weight=100
     export function sendLEDCommand(cmd_to_send: string, wait_ms: number) {
         radio.sendString(cmd_to_send)
-        serial.writeLine(cmd_to_send)
+        console.log(cmd_to_send)
         basic.pause(wait_ms)
     }
 
@@ -145,7 +145,7 @@ namespace LEDTower {
      * Get string from serial port or text to be sent
      * Dot|tx,ty|zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y|RRR,GGG,BBB;
      * Line|tx,ty|zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y|RRR,GGG,BBB;
-     * Rect|v|zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y|RRR,GGG,BBB; 
+     * Rect|tx,ty|zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y|RRR,GGG,BBB;
      * Floor|tx,ty|zz:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y|RRR,GGG,BBB;
      * Char|tx,ty|C|zz|D|RRR,GGG,BBB;
      * Show|tx,ty; Show|All; Clear|tx,ty; Clear|All;
@@ -207,13 +207,13 @@ namespace LEDTower {
                     _temp_color_num = (((parseInt(_temp_color_arr[0]) << 16) & 0xFF0000) + ((parseInt(_temp_color_arr[1]) << 8) & 0x00FF00) + parseInt(_temp_color_arr[2]))
                     return getCommandToSend(_temp_tower_str, _temp_pts_str, _temp_color_num)
                 } else if (_store_cmd_arr[0] == "Show") {
-                    return setShowCommand(false, _temp_tower_str)
+                    return getShowCommand(false, _temp_tower_str)
                 } else if (_store_cmd_arr[0] == "Clear") {
                     return getClearCommand(false, _temp_tower_str)
                 }
             } else {
                 if (_store_cmd_arr[0] == "Show") {
-                    return setShowCommand(true)
+                    return getShowCommand(true)
                 } else if (_store_cmd_arr[0] == "Clear") {
                     return getClearCommand(true)
                 }
@@ -255,7 +255,7 @@ namespace LEDTower {
     //% to_all_tower.shadow="toggleYesNo" to_all_tower.defl=true
     //% tower_pos.shadow="get_2D_tower_coor"
     //% group="Command Configuration"
-    export function setShowCommand(to_all_tower: boolean, tower_pos?: string) {
+    export function getShowCommand(to_all_tower: boolean, tower_pos?: string) {
         let _combined_string: string
         _combined_string = "UEOC"
         if (!to_all_tower) {
