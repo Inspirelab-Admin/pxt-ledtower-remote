@@ -283,12 +283,13 @@ namespace LEDTower {
         _char_pos = conversionStringList.indexOf(char_to_show)
         _char_show_arr = charStrPts[_char_pos].split(",")
         _chars_str = ""
+        _face_dir_str = face_dir
         for (let led_value of _char_show_arr) {
             _chars_str += conversionStringList.charAt(parseInt(led_value))
         }
         let convert_text = conversionStringList.charAt(Math.constrain(led_cz, 0, 21))
         _combined_string = convert_text + _chars_str + "Z" + _face_dir_str
-        //console.log(_combined_string)
+        console.log(_combined_string)
         return _combined_string
     }
 
