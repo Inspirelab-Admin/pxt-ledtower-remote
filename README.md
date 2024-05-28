@@ -5,7 +5,7 @@
 ## Initialization
 ``||LEDTower.LEDTowerInit()||`` Must be used on Start
 ```blocks
-    LEDTower.LEDTowerInit()
+LEDTower.LEDTowerInit()
 ```
 
 ## Sending Commands
@@ -28,24 +28,36 @@ Return and convert the command string to be sent
 * `color_rgb`: Color = [0x000000,0xFFFFFF]
 
 Return and convert the command string from serial port or text
-`||getStringCommandToSend(read_string)||`  
+```block
+LEDTower.getStringCommandToSend(read_string)
+```
 * `read_string`: serial string to be read   
 
 ### ~hint
 
-#### Here is the command format:
-Dot|tx,ty|zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y|RRR,GGG,BBB;  
-Line|tx,ty|zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y|RRR,GGG,BBB;  
-Rect|tx,ty|zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y|RRR,GGG,BBB;  
-Floor|tx,ty|zz:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y|RRR,GGG,BBB;  
-Char|tx,ty|C|zz|D|RRR,GGG,BBB;  
-Show|tx,ty;  
-Show|All;  
-Clear|tx,ty;     
-Clear|All;  
+#### Here is the command format for:
+* Dot: Max 6 points on different levels
+> `Dot|tx,ty|zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y|RRR,GGG,BBB;'
+* Line(2-point): Points within 2 given locations with max 3 lines
+> `Line|tx,ty|zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y|RRR,GGG,BBB;`  
+* Rectangle(2-point): Points within 2 corners on the same floor with max 4 retangle
+> `Rect|tx,ty|zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y|RRR,GGG,BBB;`  
+* Same Floor: Max 12 points on the same floor
+> `Floor|tx,ty|zz:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y|RRR,GGG,BBB;`  
+* Character: Show charactor from '0~9','A~Z','a~z' in designated direction
+> `Char|tx,ty|C|zz|D|RRR,GGG,BBB;`  
+* Show: make the designated LED Tower to light up
+`Show|tx,ty;` 
+* Show: make all LED Towers to light up 
+> `Show|All;`  
+* Clear: light off all LED Towers to light up 
+> `Clear|tx,ty;`  
+* Show: turn on all LED Towers  
+> `Clear|All;`   
+
 where *tx=[0,9]; ty=[0,2]; zz=[0,21]; x=[0,4]; y=[0,4];*  
 *RRR=[0,255]; GGG=[0,255]; BBB=[0,255];*  
-*C=['0','z']; D={'U','D','L','R'}*
+*C={['0','9'],['A','Z'],['a','z']}; D={'U','D','L','R'}*
 ### ~
     
 
