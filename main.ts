@@ -149,11 +149,11 @@ namespace LEDTower {
      * Floor|tx,ty|zz:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y:x,y|RRR,GGG,BBB;
      * Char|tx,ty|C|zz|D|RRR,GGG,BBB;
      * Show|tx,ty; Show|All; Clear|tx,ty; Clear|All;
-     * where t;zz=[0,21];x=[0,4];y=[0,4];RRR=[0,255];GGG=[0,255];BBB=[0,255];C=['0','z'];D={'U','D','L','R'}
+     * where tx=[0,9];ty=[0,2];zz=[0,21];x=[0,4];y=[0,4];RRR=[0,255];GGG=[0,255];BBB=[0,255];C={['0','9'],['A','Z'],['a','z']};D={'U','D','L','R'}
      * @param read_string serial string to be read
      */
     //% block="Get Command $read_string"
-    //% read_string.defl="Dot|9,0|5,1,0:6,2,0:7,3,0:8,4,0:9,4,1:10,4,2|255,0,255"
+    //% read_string.defl="Dot|9,0|5,1,0:6,2,0:7,3,0:8,4,0:9,4,1:10,4,2|255,0,255;"
     //% group="Command Configuration" weight=100
     export function getStringCommandToSend(read_string: string) {
         let _read_temp_Str: string, _store_cmd_arr: string[]
@@ -162,7 +162,7 @@ namespace LEDTower {
         _read_temp_Str = read_string
         if (_read_temp_Str.indexOf(";") > 0 && _read_temp_Str.indexOf("|") > 0) {
             //split command
-            _read_temp_Str = _read_temp_Str.substr(0, _read_temp_Str.length - 2)
+            _read_temp_Str = _read_temp_Str.substr(0, _read_temp_Str.length - 1)
             _store_cmd_arr = _read_temp_Str.split("|")
             if (_read_temp_Str.indexOf(",") > 0) {
                 //Get tower string
@@ -199,12 +199,17 @@ namespace LEDTower {
                         _temp_pts_str += "RU"
                     }
                     _temp_color_arr = _store_cmd_arr[3].split(",")
-                    _temp_color_num = (((parseInt(_temp_color_arr[0]) << 16) & 0xFF0000) + ((parseInt(_temp_color_arr[1]) << 8) & 0x00FF00) + parseInt(_temp_color_arr[2]))
+                    _temp_color_num = (((parseInt(_temp_color_arr[0]) << 16) & 0xFF0000) + ((parseInt(_temp_color_arr[1]) << 8) & 0x00FF00) + (parseInt(_temp_color_arr[2]) & 0x0000FF))
+                    //console.log("1a: "+_read_temp_Str)
+                    //console.log("1b: "+_store_cmd_arr[3])
+                    //console.log("1c: "+_temp_color_arr[2])
+                    //console.log("1d: "+_temp_color_num)
                     return getCommandToSend(_temp_tower_str, _temp_pts_str, _temp_color_num)
                 } else if (_store_cmd_arr[0] == "Char") {
                     _temp_pts_str = getLEDCharString(_store_cmd_arr[2], parseInt(_store_cmd_arr[3]), _store_cmd_arr[4])
                     _temp_color_arr = _store_cmd_arr[5].split(",")
-                    _temp_color_num = (((parseInt(_temp_color_arr[0]) << 16) & 0xFF0000) + ((parseInt(_temp_color_arr[1]) << 8) & 0x00FF00) + parseInt(_temp_color_arr[2]))
+                    _temp_color_num = (((parseInt(_temp_color_arr[0]) << 16) & 0xFF0000) + ((parseInt(_temp_color_arr[1]) << 8) & 0x00FF00) + (parseInt(_temp_color_arr[2]) & 0x0000FF))
+                    //console.log("2: "+_temp_color_num)
                     return getCommandToSend(_temp_tower_str, _temp_pts_str, _temp_color_num)
                 } else if (_store_cmd_arr[0] == "Show") {
                     return getShowCommand(false, _temp_tower_str)
@@ -289,7 +294,7 @@ namespace LEDTower {
         }
         let convert_text = conversionStringList.charAt(Math.constrain(led_cz, 0, 21))
         _combined_string = convert_text + _chars_str + "Z" + _face_dir_str
-        console.log(_combined_string)
+        //console.log(_combined_string)
         return _combined_string
     }
 
