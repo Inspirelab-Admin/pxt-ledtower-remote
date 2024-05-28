@@ -15,6 +15,7 @@ This function helps to send commands to a LED tower and wait for some ms to send
 * `cmd_to_send`: String Command to send
 * `wait_ms`: ms to wait
 ```block
+// @collapsed
     LEDTower.sendLEDCommand(LEDTower.getCommandToSend(LEDTower.get2DTowerCoor(0, 0), LEDTower.getLEDCharString("A", 21, LEDTower.getCharDirEnum(charFaceMap.up)), LEDTower.getColorPickerString(0x00ff00)), 50)
 ```
 
@@ -29,10 +30,10 @@ Return and convert the command string to be sent
 Return and convert the command string from serial port or text
 `||getStringCommandToSend(read_string)||`  
 * `read_string`: serial string to be read   
+
 ### ~hint
 
 #### Here is the command format:
-// @collapsed
 Dot|tx,ty|zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y|RRR,GGG,BBB;  
 Line|tx,ty|zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y:zz,x,y|RRR,GGG,BBB;  
 Rect|tx,ty|zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y:zz,x,y,x,y|RRR,GGG,BBB;  
@@ -43,7 +44,7 @@ Show|All;
 Clear|tx,ty;     
 Clear|All;  
 where *tx=[0,9]; ty=[0,2]; zz=[0,21]; x=[0,4]; y=[0,4];*  
-*RRR=[0,255]; GGG=[0,255]; BBB=[0,255];*
+*RRR=[0,255]; GGG=[0,255]; BBB=[0,255];*  
 *C=['0','z']; D={'U','D','L','R'}*
 ### ~
     
