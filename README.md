@@ -27,5 +27,14 @@ x,y:
 ```blocks
 LEDTower.LEDTowerInit()
 ```
+## License
+
+MIT
+
+
+#### Metadata (used for search, rendering)
+
+* for PXT/microbit
+<script src="https://makecode.com/gh-pages-embed.js"></script><script>makeCodeRender("{{ site.makecode.home_url }}", "{{ site.github.owner_name }}/{{ site.github.repository_name }}");</script>
 
 Go to [Next page](/README2.md)
