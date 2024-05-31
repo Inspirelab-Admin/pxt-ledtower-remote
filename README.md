@@ -47,5 +47,5 @@ Return and convert the command string to be sent
 NEXT: Next page
 
 ## ~
-Go to [Next page](/README2)
-Go to [Next page](/docs/README2)
+Go to [Next page](/README2.md)
+Go to [Next page](/docs/README2.md)
